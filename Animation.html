@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body style="background:black;color:white;text-align:center;padding-top:200px;font-size:40px;">
+
+<h1 id="text"></h1>
+
+<script>
+let msg = "Welcome Abeer Sharma 🚀";
+let i = 0;
+
+function type(){
+    if(i < msg.length){
+        document.getElementById("text").innerHTML += msg.charAt(i);
+        i++;
+        setTimeout(type,100);
+    }
+}
+
+type();
+</script>
+
+</body>
+</html>
