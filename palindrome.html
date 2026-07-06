@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palindrome Checker</title>
+</head>
+<body>
+
+<script>
+
+function palindrome(myString) {
+
+    // Remove spaces and special characters
+    var input = myString.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+
+    // Reverse the string
+    var reversedInput = input.split('').reverse().join('');
+
+    // Check if palindrome
+    if (input === reversedInput) {
+        document.write("<h2>" + myString + " is a Palindrome.</h2>");
+    } else {
+        document.write("<h2>" + myString + " is NOT a Palindrome.</h2>");
+    }
+}
+
+
+// Call the function
+palindrome("madam");
+
+</script>
+
+</body>
+</html>
