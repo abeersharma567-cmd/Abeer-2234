@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matrix Addition</title>
+</head>
+<body>
+
+<h2>Matrix Addition (2×2)</h2>
+
+<script>
+    // First Matrix
+    let matrix1 = [
+        [1, 2],
+        [3, 4]
+    ];
+
+    // Second Matrix
+    let matrix2 = [
+        [5, 6],
+        [7, 8]
+    ];
+
+    // Result Matrix
+    let result = [
+        [],
+        []
+    ];
+
+    // Add matrices
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 2; j++) {
+            result[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+
+    document.write("<h3>Matrix 1</h3>");
+    document.write(matrix1[0] + "<br>");
+    document.write(matrix1[1] + "<br><br>");
+
+    document.write("<h3>Matrix 2</h3>");
+    document.write(matrix2[0] + "<br>");
+    document.write(matrix2[1] + "<br><br>");
+
+    document.write("<h3>Result (Addition)</h3>");
+    document.write(result[0] + "<br>");
+    document.write(result[1]);
+</script>
+
+</body>
+</html>

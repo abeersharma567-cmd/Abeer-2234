@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cube Calculator</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+}
+
+.container{
+    background:white;
+    padding:30px;
+    width:350px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1{
+    color:#0072ff;
+}
+
+input{
+    width:90%;
+    padding:12px;
+    font-size:18px;
+    border:2px solid #0072ff;
+    border-radius:10px;
+    outline:none;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:#0072ff;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#0056d6;
+    transform:scale(1.05);
+}
+
+#result{
+    margin-top:20px;
+    font-size:24px;
+    font-weight:bold;
+    color:#333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🧊 Cube Calculator</h1>
+
+    <input type="number" id="number" placeholder="Enter a number">
+
+    <br>
+
+    <button onclick="findCube()">Find Cube</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function findCube() {
+    let num = document.getElementById("number").value;
+
+    if (num === "") {
+        document.getElementById("result").innerHTML = "Please enter a number!";
+        return;
+    }
+
+    let cube = num * num * num;
+
+    document.getElementById("result").innerHTML =
+        "🧊 Cube of <b>" + num + "</b> = <b>" + cube + "</b>";
+}
+</script>
+
+</body>
+</html>

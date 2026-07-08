@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horrid Henry Fan Page</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#1d2671,#c33764);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.container{
+    width:90%;
+    max-width:850px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(12px);
+    border-radius:25px;
+    padding:35px;
+    text-align:center;
+    color:white;
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    transition:0.4s;
+}
+
+.container:hover{
+    transform:translateY(-8px);
+}
+
+header h1{
+    font-size:48px;
+    color:#ffeb3b;
+    text-shadow:2px 2px 8px black;
+}
+
+header p{
+    margin-top:10px;
+    font-size:20px;
+    color:#eeeeee;
+}
+
+img{
+    width:280px;
+    height:280px;
+    object-fit:cover;
+    border-radius:20px;
+    margin:30px 0;
+    border:5px solid white;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+    transition:.4s;
+}
+
+img:hover{
+    transform:scale(1.05) rotate(2deg);
+}
+
+h2{
+    color:#ffeb3b;
+    margin-bottom:15px;
+}
+
+p{
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+button{
+    padding:14px 35px;
+    font-size:18px;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(45deg,#ff9800,#ff5722);
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 6px 15px rgba(0,0,0,.4);
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+#quote{
+    margin-top:25px;
+    color:#00ffcc;
+    font-size:24px;
+    font-style:italic;
+    min-height:40px;
+}
+
+footer{
+    margin-top:35px;
+    font-size:16px;
+    color:#ddd;
+    border-top:1px solid rgba(255,255,255,.3);
+    padding-top:20px;
+}
+
+@media(max-width:700px){
+    header h1{
+        font-size:36px;
+    }
+
+    img{
+        width:220px;
+        height:220px;
+    }
+
+    p{
+        font-size:16px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<header>
+    <h1>Horrid Henry</h1>
+    <p>The Mischievous Kid Everyone Knows!</p>
+</header>
+
+<img src="henry.jpg" alt="Horrid Henry">
+
+<h2>About Horrid Henry</h2>
+
+<p>
+Horrid Henry is the mischievous star of the famous children's book and TV series.
+He loves playing pranks, dislikes homework, and is always getting into trouble.
+His younger brother, Perfect Peter, is well-behaved, making the two complete opposites.
+Despite his naughty behavior, Henry is clever, funny, and always finds exciting adventures.
+</p>
+
+<button onclick="showQuote()">Show Quote</button>
+
+<h2 id="quote"></h2>
+
+<footer>
+    <p>⭐ Horrid Henry Fan Page ⭐</p>
+</footer>
+
+</div>
+
+<script>
+function showQuote(){
+    var quotes = [
+        "Life is much more fun with a little mischief!",
+        "Rules are made to be bent!",
+        "Every day is a new adventure!",
+        "Being boring is not an option!",
+        "Never stop having fun!"
+    ];
+
+    var random = Math.floor(Math.random() * quotes.length);
+
+    document.getElementById("quote").innerHTML = quotes[random];
+}
+</script>
+
+</body>
+</html>

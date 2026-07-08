@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tanjiro Kamado</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to bottom,#000,#006400);
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#0b6b2e;
+    padding:20px;
+    box-shadow:0 0 15px limegreen;
+}
+
+img{
+    width:300px;
+    border-radius:15px;
+    margin-top:20px;
+    box-shadow:0 0 20px limegreen;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    color:#7CFC00;
+}
+
+button{
+    background:#0b6b2e;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    font-size:18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+button:hover{
+    background:#00aa44;
+}
+
+footer{
+    margin-top:40px;
+    padding:15px;
+    background:#111;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Tanjiro Kamado</h1>
+    <p>The Kind-Hearted Demon Slayer</p>
+</header>
+
+<div class="container">
+
+    <img src="tanjiro.jpg" alt="Tanjiro Kamado">
+
+    <h2>About</h2>
+
+    <p>
+        Tanjiro Kamado is the main protagonist of Demon Slayer.
+        After his family is attacked by demons and his sister Nezuko
+        becomes a demon, Tanjiro joins the Demon Slayer Corps to protect
+        humanity and find a cure for his sister. His determination,
+        kindness, and mastery of Water Breathing and Sun Breathing make
+        him one of the strongest Demon Slayers.
+    </p>
+
+    <button onclick="showQuote()">Show Quote</button>
+
+    <h2 id="quote"></h2>
+
+</div>
+
+<footer>
+    Demon Slayer Fan Page | Made with HTML, CSS & JavaScript
+</footer>
+
+<script>
+function showQuote(){
+    document.getElementById("quote").innerHTML =
+    '"No matter how many people you may lose, you have no choice but to go on living."';
+}
+</script>
+
+</body>
+</html>

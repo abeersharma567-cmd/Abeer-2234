@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoriichi Tsugikuni</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(to bottom,#000,#5b0000);
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#8b0000;
+    padding:20px;
+    box-shadow:0 0 15px red;
+}
+
+img{
+    width:300px;
+    border-radius:15px;
+    margin-top:20px;
+    box-shadow:0 0 20px red;
+}
+
+.container{
+    width:80%;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    color:#ff4444;
+}
+
+button{
+    background:#b30000;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    font-size:18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+button:hover{
+    background:red;
+}
+
+footer{
+    margin-top:40px;
+    padding:15px;
+    background:#111;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Yoriichi Tsugikuni</h1>
+    <p>The Greatest Demon Slayer</p>
+</header>
+
+<div class="container">
+
+    <img src="https://wallpapercave.com/wp/wp11350928.jpg" alt="Yoriichi">
+
+    <h2>About</h2>
+
+    <p>
+        Yoriichi Tsugikuni was the strongest Demon Slayer in history.
+        He created the original Sun Breathing technique and nearly defeated
+        Muzan Kibutsuji by himself. His incredible speed, skill, and
+        compassion made him a legendary swordsman.
+    </p>
+
+    <button onclick="showQuote()">Show Quote</button>
+
+    <h2 id="quote"></h2>
+
+</div>
+
+<footer>
+    Demon Slayer Fan Page | Made with HTML, CSS & JavaScript
+</footer>
+
+<script>
+function showQuote(){
+    document.getElementById("quote").innerHTML =
+    '"The strong should protect the weak."';
+}
+</script>
+
+</body>
+</html>

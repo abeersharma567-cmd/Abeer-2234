@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pH Finder</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    width:380px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1{
+    color:#0072ff;
+}
+
+select{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:2px solid #0072ff;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:#0072ff;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056d6;
+}
+
+#result{
+    margin-top:20px;
+    font-size:22px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>🧪 pH Finder</h1>
+
+<select id="substance">
+<option value="">-- Select a Substance --</option>
+
+<option value="2.0">🍋 Lemon Juice</option>
+<option value="3.5">🍊 Orange Juice</option>
+<option value="2.8">🍶 Vinegar</option>
+<option value="5.0">☕ Coffee</option>
+<option value="6.6">🥛 Milk</option>
+<option value="7.0">💧 Pure Water</option>
+<option value="8.1">🌊 Sea Water</option>
+<option value="8.3">🧂 Baking Soda Solution</option>
+<option value="9.5">🪥 Toothpaste</option>
+<option value="10.0">🧼 Soap</option>
+<option value="11.0">🧴 Detergent</option>
+<option value="12.5">🧪 Bleach</option>
+<option value="1.5">🧪 Hydrochloric Acid (HCl)</option>
+<option value="13.5">🧪 Sodium Hydroxide (NaOH)</option>
+<option value="11.5">🧪 Ammonia (NH₃)</option>
+<option value="2.0">🤢 Vomit</option>
+<option value="7.4">🩸 Blood</option>
+<option value="2.5">🥤 Soft Drink</option>
+<option value="4.2">🍅 Tomato Juice</option>
+<option value="3.6">🍎 Apple Juice</option>
+
+</select>
+
+<button onclick="findPH()">Find pH</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function findPH(){
+
+let select=document.getElementById("substance");
+let ph=parseFloat(select.value);
+let name=select.options[select.selectedIndex].text;
+let result=document.getElementById("result");
+
+if(select.value==""){
+result.innerHTML="Please select a substance.";
+return;
+}
+
+let type="";
+
+if(ph<7){
+type="🔴 Acidic";
+}
+else if(ph==7){
+type="🟢 Neutral";
+}
+else{
+type="🔵 Basic";
+}
+
+result.innerHTML=
+"<h3>"+name+"</h3>"+
+"<p><b>pH:</b> "+ph+"</p>"+
+"<p><b>Nature:</b> "+type+"</p>";
+
+}
+
+</script>
+
+</body>
+</html>
