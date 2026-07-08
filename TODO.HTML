@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do List</title>
+</head>
+<body>
+
+    <h3>Add your To Do List here</h3>
+
+    <form id="myForm">
+        <input id="myInput" type="text" placeholder="Enter a task">
+        <button>Add</button>
+    </form>
+
+    <h3>To Do List</h3>
+
+    <ul id="myItem"></ul>
+
+    <script>
+        var form = document.getElementById("myForm");
+        var input = document.getElementById("myInput");
+        var list = document.getElementById("myItem");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            if (input.value.trim() === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            var li = document.createElement("li");
+            li.textContent = input.value;
+
+            // Delete button
+            var deleteBtn = document.createElement("button");
+            deleteBtn.textContent = " Delete";
+
+            deleteBtn.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(deleteBtn);
+            list.appendChild(li);
+
+            input.value = "";
+        });
+    </script>
+
+</body>
+</html>
