@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stopwatch</title>
+</head>
+<body>
+
+<h1>Stopwatch</h1>
+
+<h2 id="display">00 : 00 : 00 : 000</h2>
+
+<button onclick="startWatch()">Start</button>
+<button onclick="stopWatch()">Stop</button>
+<button onclick="resetWatch()">Reset</button>
+
+<script>
+
+let hr = 0;
+let min = 0;
+let sec = 0;
+let ms = 0;
+
+let timer = null;
+
+function showTime() {
+
+    ms += 10;
+
+    if (ms == 1000) {
+        ms = 0;
+        sec++;
+    }
+
+    if (sec == 60) {
+        sec = 0;
+        min++;
+    }
+
+    if (min == 60) {
+        min = 0;
+        hr++;
+    }
+
+    let h = hr < 10 ? "0" + hr : hr;
+    let m = min < 10 ? "0" + min : min;
+    let s = sec < 10 ? "0" + sec : sec;
+
+    let milli;
+    if (ms < 10) {
+        milli = "00" + ms;
+    } else if (ms < 100) {
+        milli = "0" + ms;
+    } else {
+        milli = ms;
+    }
+
+    document.getElementById("display").innerHTML =
+        h + " : " + m + " : " + s + " : " + milli;
+}
+
+function startWatch() {
+    if (timer == null) {
+        timer = setInterval(showTime, 10);
+    }
+}
+
+function stopWatch() {
+    clearInterval(timer);
+    timer = null;
+}
+
+function resetWatch() {
+    clearInterval(timer);
+    timer = null;
+
+    hr = 0;
+    min = 0;
+    sec = 0;
+    ms = 0;
+
+    document.getElementById("display").innerHTML =
+        "00 : 00 : 00 : 000";
+}
+
+</script>
+
+</body>
+</html>
