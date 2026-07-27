@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gojo Animated Slider</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+}
+
+.slider{
+    width:420px;
+    height:720px;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+
+    box-shadow:
+    0 0 20px cyan,
+    0 0 40px #00ccff,
+    0 0 80px blue;
+
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+from{
+box-shadow:
+0 0 10px cyan,
+0 0 20px #00ccff,
+0 0 30px blue;
+}
+
+to{
+box-shadow:
+0 0 25px cyan,
+0 0 50px #00ccff,
+0 0 100px blue;
+}
+
+}
+
+.mySlides{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+
+    animation:
+    fade 1s,
+    zoom 3s;
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+}
+
+to{
+opacity:1;
+}
+
+}
+
+@keyframes zoom{
+
+from{
+transform:scale(1);
+}
+
+to{
+transform:scale(1.08);
+}
+
+}
+
+.title{
+
+position:absolute;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+z-index:100;
+
+font-size:28px;
+font-weight:bold;
+color:white;
+
+text-shadow:
+0 0 10px cyan,
+0 0 20px blue;
+
+animation:textGlow 2s infinite alternate;
+
+}
+
+@keyframes textGlow{
+
+from{
+text-shadow:
+0 0 10px cyan;
+}
+
+to{
+text-shadow:
+0 0 20px cyan,
+0 0 40px blue;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="slider">
+
+<div class="title">
+Satoru Gojo
+</div>
+
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\Gojo (1).jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\The Eyes That See Everything Wallpaper _ Jujutsu Kaisen Anime.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\Title  🔥 Silent Power Anime Wallpaper _ Motivational 3D Aesthetic Edit.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\NEVER THINK YOU ARE WEAK.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\Become Strong Enough To Protect Your Dreams ⚔️.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\Gojo Satoru Infinity World 4K Wallpaper _ Limitless Aura Anime HD Background.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\download.jpg">
+<img class="mySlides" src="C:\Users\LENOVO\Downloads\download (2).jpg">
+
+</div>
+
+<script>
+
+let slideIndex = 0;
+
+showSlides();
+
+function showSlides(){
+
+let slides=document.getElementsByClassName("mySlides");
+
+for(let i=0;i<slides.length;i++){
+
+slides[i].style.display="none";
+
+}
+
+slideIndex++;
+
+if(slideIndex>slides.length){
+
+slideIndex=1;
+
+}
+
+slides[slideIndex-1].style.display="block";
+
+setTimeout(showSlides,3000);
+
+}
+
+</script>
+
+</body>
+</html>
