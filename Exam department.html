@@ -1,0 +1,4154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>School Examination Department</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#fff;
+}
+
+/* HEADER */
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:#0b1728;
+    border-bottom:1px solid #1d3048;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 25px;
+    z-index:1000;
+}
+
+.school{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+}
+
+.school h2{
+    font-size:17px;
+}
+
+.school p{
+    color:#7e91a9;
+    font-size:11px;
+}
+
+.avatar{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:70px;
+    left:0;
+    bottom:0;
+    width:230px;
+    background:#0a1627;
+    border-right:1px solid #1d3048;
+    padding:22px 14px;
+}
+
+.menu-title{
+    color:#637992;
+    font-size:11px;
+    text-transform:uppercase;
+    margin:0 14px 12px;
+}
+
+.menu{
+    padding:13px 14px;
+    margin:5px 0;
+    border-radius:10px;
+    color:#9db0c5;
+    display:flex;
+    gap:12px;
+    cursor:pointer;
+}
+
+.menu:hover{
+    background:#12263e;
+    color:white;
+}
+
+.menu.active{
+    background:linear-gradient(90deg,#0879ff,#00a8ff);
+    color:white;
+}
+
+/* MAIN */
+.main{
+    margin-left:230px;
+    padding:100px 30px 40px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.title{
+    margin-bottom:25px;
+}
+
+.title h1{
+    font-size:28px;
+}
+
+.title p{
+    color:#8194aa;
+    margin-top:6px;
+}
+
+/* CARDS */
+.card{
+    background:#0d1c30;
+    border:1px solid #1d3048;
+    border-radius:16px;
+    padding:22px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.stat-name{
+    color:#8194aa;
+    font-size:13px;
+}
+
+/* FORMS */
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group label{
+    color:#a8b8ca;
+    font-size:13px;
+}
+
+.form-group input,
+.form-group select{
+    background:#09182a;
+    color:white;
+    border:1px solid #29405b;
+    border-radius:8px;
+    padding:11px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#00a8ff;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.primary-btn{
+    margin-top:20px;
+    padding:11px 18px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    background:linear-gradient(90deg,#0879ff,#00a8ff);
+    cursor:pointer;
+}
+
+.secondary-btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    background:#162b44;
+    cursor:pointer;
+}
+
+.danger-btn{
+    padding:8px 12px;
+    border:none;
+    border-radius:7px;
+    color:white;
+    background:#7f2634;
+    cursor:pointer;
+}
+
+/* TABLE */
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px;
+    text-align:left;
+    border-bottom:1px solid #203147;
+}
+
+th{
+    color:#8fa2b8;
+    font-size:13px;
+}
+
+td{
+    font-size:14px;
+}
+
+/* CLASS BUTTONS */
+.class-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:20px 0;
+}
+
+.class-btn{
+    padding:16px;
+    background:#10233a;
+    color:white;
+    border:1px solid #263c56;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.class-btn:hover,
+.class-btn.selected{
+    background:#0879ff;
+    border-color:#0879ff;
+}
+
+/* STREAM */
+.stream-area{
+    display:none;
+    margin:20px 0;
+}
+
+.stream-area.show{
+    display:block;
+}
+
+.stream-buttons,
+.section-buttons,
+.subject-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:12px;
+}
+
+.stream-btn,
+.section-btn,
+.subject-btn{
+    padding:11px 18px;
+    border:none;
+    border-radius:8px;
+    background:#152941;
+    color:white;
+    cursor:pointer;
+}
+
+.stream-btn.selected,
+.section-btn.selected,
+.subject-btn.selected{
+    background:#00a8ff;
+}
+
+/* RESULTS */
+.student-result-card{
+    background:#102238;
+    border:1px solid #263c56;
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.student-result-card:hover{
+    background:#15304e;
+    transform:translateY(-2px);
+}
+
+.student-result-card h3{
+    margin-bottom:5px;
+}
+
+.student-result-card p{
+    color:#8194aa;
+    font-size:13px;
+}
+
+/* EXAM WEEK */
+.week-controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:18px 0;
+}
+
+.week-btn{
+    padding:9px 16px;
+    border:none;
+    border-radius:8px;
+    background:#152941;
+    color:#b8c8da;
+    cursor:pointer;
+}
+
+.week-btn.active{
+    background:#0879ff;
+    color:white;
+}
+
+.exam-day{
+    background:#101f33;
+    border:1px solid #22364f;
+    border-radius:10px;
+    padding:14px;
+    margin-bottom:10px;
+}
+
+.exam-day strong{
+    color:#00cfff;
+}
+
+/* NOTICE */
+.notice{
+    padding:17px;
+    background:#101f33;
+    border:1px solid #233850;
+    border-radius:10px;
+    margin-bottom:12px;
+}
+
+.private-tag{
+    color:#ffd166;
+}
+
+.public-tag{
+    color:#00d4ff;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:3000;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:600px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    background:#0d1c30;
+    border:1px solid #29405b;
+    border-radius:16px;
+    padding:25px;
+}
+
+.close-btn{
+    float:right;
+    border:none;
+    background:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* RESULT DETAIL */
+.result-header{
+    text-align:center;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.result-header h1{
+    margin-bottom:8px;
+}
+
+.result-header p{
+    color:#8ca0b6;
+}
+
+.result-summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.summary-box{
+    background:#102238;
+    border:1px solid #263c56;
+    border-radius:10px;
+    padding:18px;
+    text-align:center;
+}
+
+.summary-box h2{
+    font-size:25px;
+    margin-bottom:5px;
+}
+
+.summary-box p{
+    color:#8295ab;
+    font-size:12px;
+}
+
+/* EMPTY */
+.empty{
+    color:#8194aa;
+    padding:20px 0;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .class-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:70px;
+    }
+
+    .menu-title{
+        display:none;
+    }
+
+    .menu{
+        justify-content:center;
+    }
+
+    .menu span:last-child{
+        display:none;
+    }
+
+    .main{
+        margin-left:70px;
+        padding:95px 15px 30px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .class-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .result-summary{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="school">
+
+        <div class="logo">🏫</div>
+
+        <div>
+            <h2>MOUNT LITERA SCHOOL</h2>
+            <p>Examination Department</p>
+        </div>
+
+    </div>
+
+    <div class="avatar">
+        ED
+    </div>
+
+</header>
+
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="menu-title">
+        Examination
+    </div>
+
+    <div class="menu active"
+         onclick="showPage('dashboard',this)">
+        <span>📊</span>
+        <span>Dashboard</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('exams',this)">
+        <span>📝</span>
+        <span>Exams</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('timetable',this)">
+        <span>📅</span>
+        <span>Timetable</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('students',this)">
+        <span>👨‍🎓</span>
+        <span>Students</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('marks',this)">
+        <span>✍️</span>
+        <span>Marks</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('results',this)">
+        <span>🏆</span>
+        <span>Results</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('promote',this)">
+        <span>🔄</span>
+        <span>Promote Students</span>
+    </div>
+
+    <div class="menu"
+         onclick="showPage('notices',this)">
+        <span>📢</span>
+        <span>Notices</span>
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="page active">
+
+    <div class="title">
+        <h1>Exam Department Dashboard 👋</h1>
+        <p>School examination management system</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            <div>📝</div>
+            <div class="stat-number" id="totalExams">0</div>
+            <div class="stat-name">Total Exams</div>
+        </div>
+
+        <div class="card">
+            <div>📅</div>
+            <div class="stat-number" id="weekExams">0</div>
+            <div class="stat-name">Exams in 3 Weeks</div>
+        </div>
+
+        <div class="card">
+            <div>👨‍🎓</div>
+            <div class="stat-number" id="studentCount">0</div>
+            <div class="stat-name">Students</div>
+        </div>
+
+        <div class="card">
+            <div>📢</div>
+            <div class="stat-number" id="noticeCount">0</div>
+            <div class="stat-name">Notices</div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>📅 Three-Week Examination Overview</h2>
+
+        <div class="week-controls">
+
+            <button class="week-btn active"
+                    onclick="showWeek(1,this)">
+                Week 1
+            </button>
+
+            <button class="week-btn"
+                    onclick="showWeek(2,this)">
+                Week 2
+            </button>
+
+            <button class="week-btn"
+                    onclick="showWeek(3,this)">
+                Week 3
+            </button>
+
+            <button class="week-btn"
+                    onclick="showWeek(4,this)">
+                All 3 Weeks
+            </button>
+
+        </div>
+
+        <div id="weekOverview"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EXAMS ================= -->
+
+<section id="exams" class="page">
+
+    <div class="title">
+
+        <h1>📝 Exam Management</h1>
+
+        <p>Create and manage examinations.</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>➕ Create Exam</h2>
+
+        <br>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Exam Type</label>
+
+                <select id="examType"
+                        onchange="updateMaximumMarks()">
+
+                    <option value="UT 1">UT 1</option>
+                    <option value="UT 2">UT 2</option>
+                    <option value="Half-Yearly">Half-Yearly</option>
+                    <option value="UT 3">UT 3</option>
+                    <option value="Final">Final Examination</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Maximum Marks</label>
+
+                <input id="maxMarks"
+                       type="number"
+                       value="20"
+                       readonly>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <input id="examSubject"
+                       placeholder="Mathematics">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Class</label>
+
+                <select id="examClass"
+                        onchange="updateExamStream()">
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Stream / Combination</label>
+
+                <select id="examStream">
+
+                    <option value="">Not applicable</option>
+                    <option value="Science - PCM">
+                        Science - PCM
+                    </option>
+                    <option value="Science - PCB">
+                        Science - PCB
+                    </option>
+                    <option value="Commerce">
+                        Commerce
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Section</label>
+
+                <select id="examSection">
+
+                    <option>A</option>
+                    <option>B</option>
+                    <option>A & B</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Date</label>
+
+                <input type="date"
+                       id="examDate">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Time</label>
+
+                <input type="time"
+                       id="examTime">
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="addExam()">
+            Save Exam
+        </button>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2>📋 Scheduled Exams</h2>
+
+        <br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Exam</th>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Class</th>
+                        <th>Stream</th>
+                        <th>Section</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="examTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TIMETABLE ================= -->
+
+<section id="timetable" class="page">
+
+    <div class="title">
+
+        <h1>📅 Custom Timetable</h1>
+
+        <p>Create different timetables for each class.</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>➕ Add Timetable Entry</h2>
+
+        <br>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Class</label>
+
+                <select id="ttClass"
+                        onchange="updateTTStream()">
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Stream / Combination</label>
+
+                <select id="ttStream">
+
+                    <option value="">Not applicable</option>
+
+                    <option>Science - PCM</option>
+
+                    <option>Science - PCB</option>
+
+                    <option>Commerce</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Section</label>
+
+                <select id="ttSection">
+
+                    <option>A</option>
+                    <option>B</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <input id="ttSubject"
+                       placeholder="Mathematics">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Date</label>
+
+                <input type="date"
+                       id="ttDate">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Start Time</label>
+
+                <input type="time"
+                       id="ttStart">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>End Time</label>
+
+                <input type="time"
+                       id="ttEnd">
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="addTimetable()">
+
+            Add Timetable
+
+        </button>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2>📋 Timetable</h2>
+
+        <br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Class</th>
+                        <th>Stream</th>
+                        <th>Section</th>
+                        <th>Subject</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="ttTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STUDENTS ================= -->
+
+<section id="students" class="page">
+
+    <div class="title">
+
+        <h1>👨‍🎓 Students</h1>
+
+        <p>Manage students from Class 1 to 12.</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Choose Class</h2>
+
+        <div class="class-grid"
+             id="classButtons">
+        </div>
+
+
+        <div id="studentStreamArea"
+             class="stream-area">
+
+            <h2>Choose Stream / Combination</h2>
+
+            <div class="stream-buttons">
+
+                <button class="stream-btn"
+                        onclick="selectStudentStream('Science - PCM',this)">
+                    🔬 Science - PCM
+                </button>
+
+                <button class="stream-btn"
+                        onclick="selectStudentStream('Science - PCB',this)">
+                    🧬 Science - PCB
+                </button>
+
+                <button class="stream-btn"
+                        onclick="selectStudentStream('Commerce',this)">
+                    💼 Commerce
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <h2>Choose Section</h2>
+
+        <div class="section-buttons">
+
+            <button class="section-btn"
+                    onclick="selectStudentSection('A',this)">
+                Section A
+            </button>
+
+            <button class="section-btn"
+                    onclick="selectStudentSection('B',this)">
+                Section B
+            </button>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="openStudentModal()">
+
+            + Add Student
+
+        </button>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2 id="studentListTitle">
+            Student List
+        </h2>
+
+        <br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Roll</th>
+                        <th>Name</th>
+                        <th>Class</th>
+                        <th>Stream</th>
+                        <th>Section</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MARKS ================= -->
+
+<section id="marks" class="page">
+
+    <div class="title">
+
+        <h1>✍️ Marks Management</h1>
+
+        <p>Enter marks according to the selected examination.</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Class</label>
+
+                <select id="marksClass"
+                        onchange="updateMarksStream()">
+                </select>
+
+            </div>
+
+
+            <div class="form-group"
+                 id="marksStreamGroup">
+
+                <label>Stream / Combination</label>
+
+                <select id="marksStream">
+
+                    <option value="">
+                        Select
+                    </option>
+
+                    <option>Science - PCM</option>
+                    <option>Science - PCB</option>
+                    <option>Commerce</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Section</label>
+
+                <select id="marksSection">
+
+                    <option>A</option>
+                    <option>B</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Exam</label>
+
+                <select id="marksExam"
+                        onchange="loadMarksStudents()">
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <select id="marksSubject">
+
+                    <option>Mathematics</option>
+                    <option>Science</option>
+                    <option>English</option>
+                    <option>Sanskrit</option>
+                    <option>Hindi</option>
+                    <option>SST</option>
+                    <option>Computer</option>
+                    <option>Physics</option>
+                    <option>Chemistry</option>
+                    <option>Biology</option>
+                    <option>Accountancy</option>
+                    <option>Business Studies</option>
+                    <option>Economics</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2 id="marksHeading">
+            Enter Marks
+        </h2>
+
+        <br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Roll</th>
+                        <th>Student</th>
+                        <th>Marks</th>
+                        <th>Maximum</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="marksTable"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="saveMarks()">
+
+            Save Marks
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESULTS ================= -->
+
+<section id="results" class="page">
+
+    <div id="resultsMain">
+
+        <div class="title">
+
+            <h1>🏆 Results</h1>
+
+            <p>
+                Select a class and section to view students.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Choose Class</h2>
+
+            <div class="class-grid"
+                 id="resultClassButtons">
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div id="resultSectionArea"
+             style="display:none">
+
+            <div class="card">
+
+                <h2 id="resultClassTitle">
+                    Select Section
+                </h2>
+
+                <div class="section-buttons">
+
+                    <button class="section-btn"
+                            onclick="selectResultSection('A',this)">
+                        Section A
+                    </button>
+
+                    <button class="section-btn"
+                            onclick="selectResultSection('B',this)">
+                        Section B
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div id="resultStudentArea"
+             style="display:none">
+
+            <div class="card">
+
+                <h2 id="resultStudentTitle">
+                    Students
+                </h2>
+
+                <br>
+
+                <div id="resultStudentList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- INDIVIDUAL RESULT PAGE -->
+
+    <div id="studentResultPage"
+         style="display:none">
+
+        <button class="secondary-btn"
+                onclick="backToResults()">
+            ← Back to Results
+        </button>
+
+        <br><br>
+
+        <div class="card">
+
+            <div class="result-header">
+
+                <h1 id="detailStudentName">
+                    Student
+                </h1>
+
+                <p id="detailStudentInfo">
+                </p>
+
+                <button class="primary-btn"
+                        onclick="openSubjectSelector()">
+                    ⚙️ Select Subjects
+                </button>
+
+            </div>
+
+
+            <div class="result-summary">
+
+                <div class="summary-box">
+
+                    <h2 id="detailTotal">
+                        0
+                    </h2>
+
+                    <p>Total Marks</p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h2 id="detailPercentage">
+                        0%
+                    </h2>
+
+                    <p>Percentage</p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <h2 id="detailGrade">
+                        —
+                    </h2>
+
+                    <p>Grade</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+
+        <div class="card">
+
+            <h2>📚 Subject Results</h2>
+
+            <br>
+
+            <div class="table-wrap">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Subject</th>
+                            <th>UT 1</th>
+                            <th>UT 2</th>
+                            <th>Half-Yearly</th>
+                            <th>UT 3</th>
+                            <th>Final</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="studentResultTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROMOTION ================= -->
+
+<section id="promote" class="page">
+
+    <div class="title">
+
+        <h1>🔄 Promote Students</h1>
+
+        <p>
+            Use this after completing the Final Examination.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Academic Year Promotion</h2>
+
+        <br>
+
+        <p style="color:#8194aa;line-height:1.7">
+
+            Students from Classes 1–9 can be moved
+            automatically to the next class.
+
+            <br><br>
+
+            Class 10 students require a stream selection
+            before moving to Class 11.
+
+            <br><br>
+
+            Class 12 students will be moved to
+            <b>Graduated / Alumni</b>.
+
+        </p>
+
+
+        <button class="primary-btn"
+                onclick="startPromotion()">
+
+            🚀 Start Student Promotion
+
+        </button>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2>Current Students</h2>
+
+        <br>
+
+        <div id="promotionPreview"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= NOTICES ================= -->
+
+<section id="notices" class="page">
+
+    <div class="title">
+
+        <h1>📢 Notices</h1>
+
+        <p>Create private or public examination notices.</p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>➕ Create Notice</h2>
+
+        <br>
+
+        <div class="form-grid">
+
+            <div class="form-group full">
+
+                <label>Notice Type</label>
+
+                <select id="noticeType">
+
+                    <option value="private">
+                        🔒 Private — Only Me
+                    </option>
+
+                    <option value="public">
+                        📢 Public — All Authorized Staff
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>Title</label>
+
+                <input id="noticeTitle"
+                       placeholder="Notice title">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>Message</label>
+
+                <input id="noticeText"
+                       placeholder="Write your notice">
+
+            </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="addNotice()">
+
+            Publish Notice
+
+        </button>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h2>📋 Notices</h2>
+
+        <br>
+
+        <div id="noticeList"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= STUDENT MODAL ================= -->
+
+<div class="modal"
+     id="studentModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn"
+                onclick="closeStudentModal()">
+            ×
+        </button>
+
+        <h2>➕ Add Student</h2>
+
+        <br>
+
+        <div class="form-group">
+
+            <label>Roll Number</label>
+
+            <input id="studentRoll"
+                   placeholder="Roll number">
+
+        </div>
+
+        <br>
+
+        <div class="form-group">
+
+            <label>Student Name</label>
+
+            <input id="studentName"
+                   placeholder="Student name">
+
+        </div>
+
+        <button class="primary-btn"
+                onclick="addStudent()">
+
+            Save Student
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SUBJECT MODAL ================= -->
+
+<div class="modal"
+     id="subjectModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn"
+                onclick="closeSubjectSelector()">
+            ×
+        </button>
+
+        <h2>⚙️ Select Subjects</h2>
+
+        <p style="color:#8194aa;margin-top:8px">
+            Select the subjects to display for this student.
+        </p>
+
+        <div class="subject-buttons"
+             id="subjectSelector">
+        </div>
+
+        <button class="primary-btn"
+                onclick="saveStudentSubjects()">
+
+            ✓ Apply Subjects
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PROMOTION MODAL ================= -->
+
+<div class="modal"
+     id="promotionModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn"
+                onclick="closePromotionModal()">
+            ×
+        </button>
+
+        <h2>🔄 Student Promotion</h2>
+
+        <br>
+
+        <div id="promotionContent"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATABASE — DEVICE STORAGE
+========================================================= */
+
+let exams =
+JSON.parse(localStorage.getItem("exam_exams")) || [];
+
+let students =
+JSON.parse(localStorage.getItem("exam_students")) || [];
+
+let timetable =
+JSON.parse(localStorage.getItem("exam_timetable")) || [];
+
+let marks =
+JSON.parse(localStorage.getItem("exam_marks")) || [];
+
+let notices =
+JSON.parse(localStorage.getItem("exam_notices")) || [];
+
+let studentSubjects =
+JSON.parse(localStorage.getItem("exam_subjects")) || {};
+
+let academicYear =
+localStorage.getItem("academic_year") || "2026-27";
+
+
+/* =========================================================
+   CURRENT SELECTIONS
+========================================================= */
+
+let selectedStudentClass = null;
+let selectedStudentStream = "";
+let selectedStudentSection = "";
+
+let selectedResultClass = null;
+let selectedResultSection = null;
+
+let selectedResultStudent = null;
+
+
+/* =========================================================
+   SUBJECTS
+========================================================= */
+
+const juniorSubjects = [
+
+    "Mathematics",
+    "Science",
+    "English",
+    "Sanskrit",
+    "Hindi",
+    "SST",
+    "Computer"
+
+];
+
+const seniorSubjects = [
+
+    "Physics",
+    "Chemistry",
+    "Mathematics",
+    "Biology",
+    "English",
+    "Accountancy",
+    "Business Studies",
+    "Economics",
+    "Computer"
+
+];
+
+
+/* =========================================================
+   SAVE EVERYTHING
+========================================================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        "exam_exams",
+        JSON.stringify(exams)
+    );
+
+    localStorage.setItem(
+        "exam_students",
+        JSON.stringify(students)
+    );
+
+    localStorage.setItem(
+        "exam_timetable",
+        JSON.stringify(timetable)
+    );
+
+    localStorage.setItem(
+        "exam_marks",
+        JSON.stringify(marks)
+    );
+
+    localStorage.setItem(
+        "exam_notices",
+        JSON.stringify(notices)
+    );
+
+    localStorage.setItem(
+        "exam_subjects",
+        JSON.stringify(studentSubjects)
+    );
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(pageId,menu){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page =>
+            page.classList.remove("active")
+        );
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
+
+    document
+        .querySelectorAll(".menu")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+    menu.classList.add("active");
+
+
+    if(pageId==="dashboard")
+        updateDashboard();
+
+    if(pageId==="exams")
+        renderExams();
+
+    if(pageId==="timetable")
+        renderTimetable();
+
+    if(pageId==="students"){
+
+        createStudentClassButtons();
+        renderStudents();
+
+    }
+
+    if(pageId==="marks"){
+
+        fillClassSelect("marksClass");
+
+        loadExamOptions();
+
+        updateMarksStream();
+
+    }
+
+    if(pageId==="results")
+        createResultClassButtons();
+
+    if(pageId==="promote")
+        renderPromotionPreview();
+
+    if(pageId==="notices")
+        renderNotices();
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* =========================================================
+   CLASS SELECTS
+========================================================= */
+
+function fillClassSelect(id){
+
+    const select =
+        document.getElementById(id);
+
+    if(!select)
+        return;
+
+    select.innerHTML="";
+
+    for(let i=1;i<=12;i++){
+
+        const option =
+            document.createElement("option");
+
+        option.value=i;
+        option.textContent="Class "+i;
+
+        select.appendChild(option);
+
+    }
+
+}
+
+
+/* =========================================================
+   EXAM MARK PATTERN
+========================================================= */
+
+function getMaximumMarks(type){
+
+    if(type==="Half-Yearly")
+        return 80;
+
+    if(type==="Final")
+        return 80;
+
+    return 20;
+
+}
+
+
+function updateMaximumMarks(){
+
+    const type =
+        document.getElementById("examType").value;
+
+    document.getElementById("maxMarks")
+        .value =
+        getMaximumMarks(type);
+
+}
+
+
+/* =========================================================
+   EXAM STREAM
+========================================================= */
+
+function updateExamStream(){
+
+    const cls =
+        Number(
+            document.getElementById("examClass").value
+        );
+
+    const stream =
+        document.getElementById("examStream");
+
+
+    if(cls>=11){
+
+        stream.disabled=false;
+
+    }else{
+
+        stream.value="";
+        stream.disabled=true;
+
+    }
+
+}
+
+
+/* =========================================================
+   ADD EXAM
+========================================================= */
+
+function addExam(){
+
+    const type =
+        document.getElementById("examType").value;
+
+    const subject =
+        document.getElementById("examSubject")
+        .value.trim();
+
+    const cls =
+        Number(
+            document.getElementById("examClass").value
+        );
+
+    const stream =
+        cls>=11
+        ? document.getElementById("examStream").value
+        : "";
+
+    const section =
+        document.getElementById("examSection").value;
+
+    const date =
+        document.getElementById("examDate").value;
+
+    const time =
+        document.getElementById("examTime").value;
+
+    const maxMarks =
+        getMaximumMarks(type);
+
+
+    if(!subject || !date){
+
+        alert("Please enter subject and date.");
+
+        return;
+
+    }
+
+
+    if(cls>=11 && !stream){
+
+        alert("Please select the stream / combination.");
+
+        return;
+
+    }
+
+
+    exams.push({
+
+        id:Date.now(),
+
+        type:type,
+
+        subject:subject,
+
+        class:cls,
+
+        stream:stream,
+
+        section:section,
+
+        date:date,
+
+        time:time,
+
+        maxMarks:maxMarks,
+
+        academicYear:academicYear
+
+    });
+
+
+    saveData();
+
+    document.getElementById("examSubject").value="";
+    document.getElementById("examDate").value="";
+    document.getElementById("examTime").value="";
+
+    renderExams();
+
+    updateDashboard();
+
+    alert(
+        "✅ "+type+
+        " created for "+maxMarks+" marks."
+    );
+
+}
+
+
+/* =========================================================
+   RENDER EXAMS
+========================================================= */
+
+function renderExams(){
+
+    const table =
+        document.getElementById("examTable");
+
+    if(!table)
+        return;
+
+    table.innerHTML="";
+
+
+    exams
+    .slice()
+    .sort((a,b)=>a.date.localeCompare(b.date))
+    .forEach(exam=>{
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML=`
+
+            <td>${exam.type}</td>
+
+            <td>${exam.subject}</td>
+
+            <td>${exam.maxMarks}</td>
+
+            <td>Class ${exam.class}</td>
+
+            <td>${exam.stream || "-"}</td>
+
+            <td>${exam.section}</td>
+
+            <td>${exam.date}</td>
+
+            <td>
+
+                <button
+                    class="danger-btn"
+                    onclick="deleteExam(${exam.id})">
+                    Delete
+                </button>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function deleteExam(id){
+
+    if(!confirm("Delete this exam?"))
+        return;
+
+    exams =
+        exams.filter(e=>e.id!==id);
+
+    saveData();
+
+    renderExams();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   THREE WEEK DASHBOARD
+========================================================= */
+
+function getWeekNumber(dateString){
+
+    const today =
+        new Date();
+
+    today.setHours(0,0,0,0);
+
+    const examDate =
+        new Date(dateString);
+
+    examDate.setHours(0,0,0,0);
+
+
+    const days =
+        Math.floor(
+            (examDate-today)/
+            (1000*60*60*24)
+        );
+
+
+    if(days<0)
+        return 0;
+
+    if(days<=6)
+        return 1;
+
+    if(days<=13)
+        return 2;
+
+    if(days<=20)
+        return 3;
+
+    return 4;
+
+}
+
+
+function showWeek(number,button){
+
+    document
+        .querySelectorAll(".week-btn")
+        .forEach(b =>
+            b.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+
+    const container =
+        document.getElementById("weekOverview");
+
+    container.innerHTML="";
+
+
+    let list;
+
+
+    if(number===4){
+
+        list =
+            exams.filter(e=>{
+
+                const week =
+                    getWeekNumber(e.date);
+
+                return week>=1 && week<=3;
+
+            });
+
+    }else{
+
+        list =
+            exams.filter(e =>
+            getWeekNumber(e.date)===number);
+
+    }
+
+
+    if(list.length===0){
+
+        container.innerHTML =
+            `<p class="empty">
+                No exams scheduled.
+             </p>`;
+
+        return;
+
+    }
+
+
+    list.forEach(exam=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className="exam-day";
+
+        div.innerHTML=`
+
+            <strong>${exam.date}</strong>
+
+            <br><br>
+
+            <b>${exam.type}</b>
+            — ${exam.subject}
+
+            <br>
+
+            <small style="color:#8194aa">
+
+                Class ${exam.class}
+
+                ${exam.stream
+                    ? " • "+exam.stream
+                    : ""}
+
+                • Section ${exam.section}
+
+                • ${exam.maxMarks} marks
+
+                • ${exam.time || "Time not set"}
+
+            </small>
+
+        `;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+    document.getElementById("totalExams")
+        .textContent=exams.length;
+
+    document.getElementById("studentCount")
+        .textContent=students.length;
+
+    document.getElementById("noticeCount")
+        .textContent=notices.length;
+
+
+    const upcoming =
+        exams.filter(e=>{
+
+            const week =
+                getWeekNumber(e.date);
+
+            return week>=1 && week<=3;
+
+        });
+
+
+    document.getElementById("weekExams")
+        .textContent=upcoming.length;
+
+
+    const buttons =
+        document.querySelectorAll(".week-btn");
+
+    if(buttons.length){
+
+        buttons.forEach(b =>
+            b.classList.remove("active")
+        );
+
+        buttons[3].classList.add("active");
+
+        showWeek(4,buttons[3]);
+
+    }
+
+}
+
+
+/* =========================================================
+   STUDENT CLASS BUTTONS
+========================================================= */
+
+function createStudentClassButtons(){
+
+    const container =
+        document.getElementById("classButtons");
+
+    container.innerHTML="";
+
+
+    for(let i=1;i<=12;i++){
+
+        const button =
+            document.createElement("button");
+
+        button.className="class-btn";
+
+        button.textContent =
+            "Class "+i;
+
+
+        button.onclick=function(){
+
+            selectedStudentClass=i;
+
+            selectedStudentStream="";
+            selectedStudentSection="";
+
+
+            document
+                .querySelectorAll("#classButtons .class-btn")
+                .forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+
+            const streamArea =
+                document.getElementById(
+                    "studentStreamArea"
+                );
+
+
+            if(i>=11){
+
+                streamArea.classList.add("show");
+
+            }else{
+
+                streamArea.classList.remove("show");
+
+            }
+
+
+            document
+                .querySelectorAll(".stream-btn")
+                .forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+            document
+                .querySelectorAll(".section-btn")
+                .forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+
+            renderStudents();
+
+        };
+
+
+        container.appendChild(button);
+
+    }
+
+}
+
+
+/* =========================================================
+   STUDENT STREAM
+========================================================= */
+
+function selectStudentStream(stream,button){
+
+    selectedStudentStream=stream;
+
+    document
+        .querySelectorAll(".stream-btn")
+        .forEach(b =>
+            b.classList.remove("selected")
+        );
+
+    button.classList.add("selected");
+
+    renderStudents();
+
+}
+
+
+/* =========================================================
+   STUDENT SECTION
+========================================================= */
+
+function selectStudentSection(section,button){
+
+    selectedStudentSection=section;
+
+    document
+        .querySelectorAll("#students .section-btn")
+        .forEach(b =>
+            b.classList.remove("selected")
+        );
+
+    button.classList.add("selected");
+
+    renderStudents();
+
+}
+
+
+/* =========================================================
+   ADD STUDENT
+========================================================= */
+
+function openStudentModal(){
+
+    if(!selectedStudentClass ||
+       !selectedStudentSection){
+
+        alert("Please select class and section.");
+
+        return;
+
+    }
+
+
+    if(selectedStudentClass>=11 &&
+       !selectedStudentStream){
+
+        alert(
+            "Please select Science/Commerce."
+        );
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("studentModal")
+        .classList.add("show");
+
+}
+
+
+function closeStudentModal(){
+
+    document
+        .getElementById("studentModal")
+        .classList.remove("show");
+
+}
+
+
+function addStudent(){
+
+    const roll =
+        document.getElementById("studentRoll")
+        .value.trim();
+
+    const name =
+        document.getElementById("studentName")
+        .value.trim();
+
+
+    if(!roll || !name){
+
+        alert("Enter roll number and name.");
+
+        return;
+
+    }
+
+
+    students.push({
+
+        id:Date.now(),
+
+        roll:roll,
+
+        name:name,
+
+        class:selectedStudentClass,
+
+        stream:
+            selectedStudentClass>=11
+            ? selectedStudentStream
+            : "",
+
+        section:selectedStudentSection,
+
+        academicYear:academicYear
+
+    });
+
+
+    saveData();
+
+    document.getElementById("studentRoll").value="";
+    document.getElementById("studentName").value="";
+
+    closeStudentModal();
+
+    renderStudents();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   RENDER STUDENTS
+========================================================= */
+
+function renderStudents(){
+
+    const table =
+        document.getElementById("studentTable");
+
+    if(!table)
+        return;
+
+    table.innerHTML="";
+
+
+    if(!selectedStudentClass ||
+       !selectedStudentSection){
+
+        table.innerHTML=`
+
+            <tr>
+                <td colspan="6"
+                    class="empty">
+                    Select class and section.
+                </td>
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    const list =
+        students.filter(s=>{
+
+            if(
+                Number(s.class)!==
+                Number(selectedStudentClass)
+            )
+                return false;
+
+            if(s.section!==selectedStudentSection)
+                return false;
+
+            if(selectedStudentClass>=11 &&
+               s.stream!==selectedStudentStream)
+                return false;
+
+            return true;
+
+        });
+
+
+    document.getElementById("studentListTitle")
+        .textContent=
+
+        "Class "+
+        selectedStudentClass+
+
+        (
+            selectedStudentStream
+            ? " • "+selectedStudentStream
+            : ""
+        )+
+
+        " • Section "+
+        selectedStudentSection;
+
+
+    list.forEach(student=>{
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML=`
+
+            <td>${student.roll}</td>
+
+            <td>${student.name}</td>
+
+            <td>Class ${student.class}</td>
+
+            <td>${student.stream || "-"}</td>
+
+            <td>${student.section}</td>
+
+            <td>
+
+                <button
+                    class="danger-btn"
+                    onclick="deleteStudent(${student.id})">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+
+    if(list.length===0){
+
+        table.innerHTML=`
+
+            <tr>
+
+                <td colspan="6"
+                    class="empty">
+
+                    No students found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+function deleteStudent(id){
+
+    if(!confirm("Delete this student?"))
+        return;
+
+    students =
+        students.filter(s=>s.id!==id);
+
+    saveData();
+
+    renderStudents();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   TIMETABLE
+========================================================= */
+
+function updateTTStream(){
+
+    const cls =
+        Number(
+            document.getElementById("ttClass").value
+        );
+
+    const stream =
+        document.getElementById("ttStream");
+
+
+    if(cls>=11){
+
+        stream.disabled=false;
+
+    }else{
+
+        stream.disabled=true;
+        stream.value="";
+
+    }
+
+}
+
+
+function addTimetable(){
+
+    const cls =
+        Number(
+            document.getElementById("ttClass").value
+        );
+
+    const stream =
+        cls>=11
+        ? document.getElementById("ttStream").value
+        : "";
+
+    const section =
+        document.getElementById("ttSection").value;
+
+    const subject =
+        document.getElementById("ttSubject")
+        .value.trim();
+
+    const date =
+        document.getElementById("ttDate").value;
+
+    const start =
+        document.getElementById("ttStart").value;
+
+    const end =
+        document.getElementById("ttEnd").value;
+
+
+    if(!subject || !date){
+
+        alert("Enter subject and date.");
+
+        return;
+
+    }
+
+
+    if(cls>=11 && !stream){
+
+        alert("Select stream / combination.");
+
+        return;
+
+    }
+
+
+    timetable.push({
+
+        id:Date.now(),
+
+        class:cls,
+
+        stream:stream,
+
+        section:section,
+
+        subject:subject,
+
+        date:date,
+
+        start:start,
+
+        end:end
+
+    });
+
+
+    saveData();
+
+    document.getElementById("ttSubject").value="";
+
+    renderTimetable();
+
+    alert("✅ Timetable saved.");
+
+}
+
+
+function renderTimetable(){
+
+    const table =
+        document.getElementById("ttTable");
+
+    if(!table)
+        return;
+
+    table.innerHTML="";
+
+
+    timetable
+    .slice()
+    .sort((a,b)=>a.date.localeCompare(b.date))
+    .forEach(item=>{
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML=`
+
+            <td>${item.date}</td>
+
+            <td>Class ${item.class}</td>
+
+            <td>${item.stream || "-"}</td>
+
+            <td>${item.section}</td>
+
+            <td>${item.subject}</td>
+
+            <td>
+                ${item.start || "-"}
+                -
+                ${item.end || "-"}
+            </td>
+
+            <td>
+
+                <button
+                    class="danger-btn"
+                    onclick="deleteTimetable(${item.id})">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+function deleteTimetable(id){
+
+    if(!confirm("Delete timetable entry?"))
+        return;
+
+    timetable =
+        timetable.filter(t=>t.id!==id);
+
+    saveData();
+
+    renderTimetable();
+
+}
+
+
+/* =========================================================
+   MARKS — IMPORTANT
+   NO STREAM FOR CLASSES 1–10
+========================================================= */
+
+function updateMarksStream(){
+
+    const cls =
+        Number(
+            document.getElementById("marksClass").value
+        );
+
+    const group =
+        document.getElementById("marksStreamGroup");
+
+    const stream =
+        document.getElementById("marksStream");
+
+
+    if(cls>=11){
+
+        group.style.display="flex";
+        stream.disabled=false;
+
+    }else{
+
+        group.style.display="none";
+        stream.value="";
+
+    }
+
+
+    loadExamOptions();
+
+    loadMarksStudents();
+
+}
+
+
+/* =========================================================
+   EXAM OPTIONS FOR MARKS
+========================================================= */
+
+function loadExamOptions(){
+
+    const select =
+        document.getElementById("marksExam");
+
+    if(!select)
+        return;
+
+    select.innerHTML="";
+
+
+    if(exams.length===0){
+
+        const option =
+            document.createElement("option");
+
+        option.textContent=
+            "No exams created";
+
+        select.appendChild(option);
+
+        return;
+
+    }
+
+
+    exams.forEach(exam=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value=exam.id;
+
+        option.textContent=
+            `${exam.type} — ${exam.subject} — /${exam.maxMarks}`;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/* =========================================================
+   LOAD MARKS STUDENTS
+========================================================= */
+
+function loadMarksStudents(){
+
+    const table =
+        document.getElementById("marksTable");
+
+    if(!table)
+        return;
+
+    table.innerHTML="";
+
+
+    const cls =
+        Number(
+            document.getElementById("marksClass").value
+        );
+
+    const section =
+        document.getElementById("marksSection").value;
+
+    const stream =
+        document.getElementById("marksStream").value;
+
+
+    const examId =
+        Number(
+            document.getElementById("marksExam").value
+        );
+
+
+    const exam =
+        exams.find(e=>e.id===examId);
+
+
+    if(!exam){
+
+        table.innerHTML=`
+
+            <tr>
+                <td colspan="4"
+                    class="empty">
+                    Create an exam first.
+                </td>
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    const list =
+        students.filter(s=>{
+
+            if(Number(s.class)!==cls)
+                return false;
+
+            if(s.section!==section)
+                return false;
+
+            if(cls>=11 &&
+               s.stream!==stream)
+                return false;
+
+            return true;
+
+        });
+
+
+    document.getElementById("marksHeading")
+        .textContent =
+        `Enter Marks — ${exam.type} — /${exam.maxMarks}`;
+
+
+    list.forEach(student=>{
+
+        const existing =
+            marks.find(m=>
+
+                m.studentId===student.id &&
+
+                m.examId===exam.id &&
+
+                m.subject===exam.subject
+
+            );
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML=`
+
+            <td>${student.roll}</td>
+
+            <td>${student.name}</td>
+
+            <td>
+
+                <input
+                    type="number"
+                    min="0"
+                    max="${exam.maxMarks}"
+                    value="${existing ? existing.value : ""}"
+                    class="mark-input"
+                    data-student="${student.id}"
+                    style="
+                        width:100px;
+                        background:#09182a;
+                        color:white;
+                        border:1px solid #29405b;
+                        padding:8px;
+                        border-radius:6px;
+                    "
+                >
+
+            </td>
+
+            <td>${exam.maxMarks}</td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+
+    if(list.length===0){
+
+        table.innerHTML=`
+
+            <tr>
+                <td colspan="4"
+                    class="empty">
+
+                    No students found for
+                    this class and section.
+
+                </td>
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE MARKS
+========================================================= */
+
+function saveMarks(){
+
+    const examId =
+        Number(
+            document.getElementById("marksExam").value
+        );
+
+    const exam =
+        exams.find(e=>e.id===examId);
+
+
+    if(!exam){
+
+        alert("Select an exam.");
+
+        return;
+
+    }
+
+
+    const inputs =
+        document.querySelectorAll(".mark-input");
+
+
+    inputs.forEach(input=>{
+
+        const studentId =
+            Number(input.dataset.student);
+
+        const value =
+            input.value;
+
+
+        marks =
+            marks.filter(m=>
+
+                !(
+                    m.studentId===studentId &&
+                    m.examId===exam.id &&
+                    m.subject===exam.subject
+                )
+
+            );
+
+
+        if(value!==""){
+
+            const number =
+                Number(value);
+
+
+            if(number>exam.maxMarks){
+
+                alert(
+                    "Marks cannot exceed "+
+                    exam.maxMarks
+                );
+
+                return;
+
+            }
+
+
+            marks.push({
+
+                studentId:studentId,
+
+                examId:exam.id,
+
+                subject:exam.subject,
+
+                value:number,
+
+                maxMarks:exam.maxMarks
+
+            });
+
+        }
+
+    });
+
+
+    saveData();
+
+    alert("✅ Marks saved successfully.");
+
+}
+
+
+/* =========================================================
+   RESULTS — CLASS BUTTONS
+========================================================= */
+
+function createResultClassButtons(){
+
+    const container =
+        document.getElementById(
+            "resultClassButtons"
+        );
+
+    container.innerHTML="";
+
+
+    for(let i=1;i<=12;i++){
+
+        const button =
+            document.createElement("button");
+
+        button.className="class-btn";
+
+        button.textContent=
+            "Class "+i;
+
+
+        button.onclick=function(){
+
+            selectedResultClass=i;
+
+            selectedResultSection=null;
+
+
+            document
+                .querySelectorAll(
+                    "#resultClassButtons .class-btn"
+                )
+                .forEach(b =>
+                    b.classList.remove("selected")
+                );
+
+            button.classList.add("selected");
+
+
+            document.getElementById(
+                "resultSectionArea"
+            ).style.display="block";
+
+
+            document.getElementById(
+                "resultStudentArea"
+            ).style.display="none";
+
+
+            document.getElementById(
+                "resultClassTitle"
+            ).textContent =
+                "Class "+i+" — Choose Section";
+
+        };
+
+
+        container.appendChild(button);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESULT SECTION
+========================================================= */
+
+function selectResultSection(section,button){
+
+    selectedResultSection=section;
+
+
+    document
+        .querySelectorAll(
+            "#resultsMain .section-btn"
+        )
+        .forEach(b =>
+            b.classList.remove("selected")
+        );
+
+    button.classList.add("selected");
+
+
+    showResultStudents();
+
+}
+
+
+/* =========================================================
+   RESULT STUDENTS
+========================================================= */
+
+function showResultStudents(){
+
+    const area =
+        document.getElementById(
+            "resultStudentArea"
+        );
+
+    const listContainer =
+        document.getElementById(
+            "resultStudentList"
+        );
+
+
+    area.style.display="block";
+
+    listContainer.innerHTML="";
+
+
+    const list =
+        students.filter(s=>
+
+            Number(s.class)===
+            Number(selectedResultClass)
+
+            &&
+
+            s.section===
+            selectedResultSection
+
+        );
+
+
+    document.getElementById(
+        "resultStudentTitle"
+    ).textContent =
+
+        `Class ${selectedResultClass}
+         • Section ${selectedResultSection}`;
+
+
+    list.forEach(student=>{
+
+        const card =
+            document.createElement("div");
+
+        card.className=
+            "student-result-card";
+
+
+        card.innerHTML=`
+
+            <h3>👨‍🎓 ${student.name}</h3>
+
+            <p>
+                Roll No. ${student.roll}
+                ${student.stream
+                    ? " • "+student.stream
+                    : ""}
+            </p>
+
+        `;
+
+
+        card.onclick=function(){
+
+            openStudentResult(student.id);
+
+        };
+
+
+        listContainer.appendChild(card);
+
+    });
+
+
+    if(list.length===0){
+
+        listContainer.innerHTML=
+            `<p class="empty">
+                No students found.
+             </p>`;
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN INDIVIDUAL RESULT
+========================================================= */
+
+function openStudentResult(studentId){
+
+    selectedResultStudent =
+        students.find(s=>s.id===studentId);
+
+
+    if(!selectedResultStudent)
+        return;
+
+
+    document.getElementById("resultsMain")
+        .style.display="none";
+
+
+    document.getElementById("studentResultPage")
+        .style.display="block";
+
+
+    document.getElementById("detailStudentName")
+        .textContent =
+        selectedResultStudent.name;
+
+
+    document.getElementById("detailStudentInfo")
+        .textContent =
+
+        `Class ${selectedResultStudent.class}
+        • Section ${selectedResultStudent.section}
+        ${
+            selectedResultStudent.stream
+            ? " • "+selectedResultStudent.stream
+            : ""
+        }
+        • Roll No. ${selectedResultStudent.roll}`;
+
+
+    renderStudentResult();
+
+}
+
+
+/* =========================================================
+   SUBJECT SELECTION
+========================================================= */
+
+function openSubjectSelector(){
+
+    const container =
+        document.getElementById(
+            "subjectSelector"
+        );
+
+    container.innerHTML="";
+
+
+    const subjects =
+        selectedResultStudent.class>=11
+        ? seniorSubjects
+        : juniorSubjects;
+
+
+    const saved =
+        studentSubjects[
+            selectedResultStudent.id
+        ] || [];
+
+
+    subjects.forEach(subject=>{
+
+        const button =
+            document.createElement("button");
+
+        button.className="subject-btn";
+
+        button.textContent=subject;
+
+
+        if(saved.includes(subject))
+            button.classList.add("selected");
+
+
+        button.onclick=function(){
+
+            button.classList.toggle("selected");
+
+        };
+
+
+        button.dataset.subject=subject;
+
+
+        container.appendChild(button);
+
+    });
+
+
+    document.getElementById("subjectModal")
+        .classList.add("show");
+
+}
+
+
+function closeSubjectSelector(){
+
+    document.getElementById("subjectModal")
+        .classList.remove("show");
+
+}
+
+
+function saveStudentSubjects(){
+
+    const buttons =
+        document.querySelectorAll(
+            "#subjectSelector .subject-btn.selected"
+        );
+
+
+    studentSubjects[
+        selectedResultStudent.id
+    ] =
+        Array.from(buttons)
+        .map(b=>b.dataset.subject);
+
+
+    saveData();
+
+    closeSubjectSelector();
+
+    renderStudentResult();
+
+}
+
+
+/* =========================================================
+   RENDER INDIVIDUAL RESULT
+========================================================= */
+
+function renderStudentResult(){
+
+    const student =
+        selectedResultStudent;
+
+
+    const selected =
+        studentSubjects[student.id] || [];
+
+
+    const subjects =
+        selected.length
+        ? selected
+        : (
+            student.class>=11
+            ? seniorSubjects.slice(0,5)
+            : juniorSubjects
+        );
+
+
+    const table =
+        document.getElementById(
+            "studentResultTable"
+        );
+
+    table.innerHTML="";
+
+
+    let totalObtained=0;
+    let totalMaximum=0;
+
+
+    subjects.forEach(subject=>{
+
+        const examMarks = {
+
+            "UT 1": "—",
+            "UT 2": "—",
+            "Half-Yearly": "—",
+            "UT 3": "—",
+            "Final": "—"
+
+        };
+
+
+        exams
+        .filter(e=>
+            e.subject===subject
+        )
+        .forEach(exam=>{
+
+            const record =
+                marks.find(m=>
+
+                    m.studentId===student.id &&
+
+                    m.examId===exam.id &&
+
+                    m.subject===subject
+
+                );
+
+
+            if(record){
+
+                examMarks[exam.type] =
+                    `${record.value}/${exam.maxMarks}`;
+
+                totalObtained +=
+                    record.value;
+
+                totalMaximum +=
+                    exam.maxMarks;
+
+            }
+
+        });
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML=`
+
+            <td>${subject}</td>
+
+            <td>${examMarks["UT 1"]}</td>
+
+            <td>${examMarks["UT 2"]}</td>
+
+            <td>${examMarks["Half-Yearly"]}</td>
+
+            <td>${examMarks["UT 3"]}</td>
+
+            <td>${examMarks["Final"]}</td>
+
+        `;
+
+
+        table.appendChild(row);
+
+    });
+
+
+    document.getElementById("detailTotal")
+        .textContent =
+        `${totalObtained}/${totalMaximum}`;
+
+
+    const percentage =
+        totalMaximum
+        ? (totalObtained/totalMaximum*100)
+            .toFixed(1)
+        : 0;
+
+
+    document.getElementById(
+        "detailPercentage"
+    ).textContent =
+        percentage+"%";
+
+
+    document.getElementById(
+        "detailGrade"
+    ).textContent =
+        calculateGrade(Number(percentage));
+
+}
+
+
+function calculateGrade(percentage){
+
+    if(percentage>=90)
+        return "A+";
+
+    if(percentage>=80)
+        return "A";
+
+    if(percentage>=70)
+        return "B";
+
+    if(percentage>=60)
+        return "C";
+
+    if(percentage>=50)
+        return "D";
+
+    if(percentage>0)
+        return "F";
+
+    return "—";
+
+}
+
+
+/* =========================================================
+   BACK TO RESULTS
+========================================================= */
+
+function backToResults(){
+
+    document.getElementById("studentResultPage")
+        .style.display="none";
+
+    document.getElementById("resultsMain")
+        .style.display="block";
+
+}
+
+
+/* =========================================================
+   PROMOTION
+========================================================= */
+
+function startPromotion(){
+
+    if(students.length===0){
+
+        alert("There are no students to promote.");
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "promotionModal"
+        );
+
+    const content =
+        document.getElementById(
+            "promotionContent"
+        );
+
+
+    content.innerHTML="";
+
+
+    const info =
+        document.createElement("p");
+
+    info.style.color="#8194aa";
+
+    info.innerHTML =
+        `Current academic year:
+        <b>${academicYear}</b><br><br>
+        Students will be prepared for the next
+        academic year.`;
+
+    content.appendChild(info);
+
+
+    const button =
+        document.createElement("button");
+
+    button.className="primary-btn";
+
+    button.textContent =
+        "Confirm Promotion";
+
+    button.onclick =
+        confirmPromotion;
+
+    content.appendChild(button);
+
+
+    modal.classList.add("show");
+
+}
+
+
+function closePromotionModal(){
+
+    document.getElementById(
+        "promotionModal"
+    ).classList.remove("show");
+
+}
+
+
+/* =========================================================
+   PROMOTION LOGIC
+========================================================= */
+
+function confirmPromotion(){
+
+    if(!confirm(
+        "Have you completed the Final Examination? " +
+        "Continue with student promotion?"
+    ))
+        return;
+
+
+    students.forEach(student=>{
+
+        if(student.class>=1 &&
+           student.class<=9){
+
+            student.class++;
+
+        }
+
+        else if(student.class===10){
+
+            /*
+             * Class 10 cannot automatically decide
+             * Science/Commerce.
+             * Keep them in Class 10 until
+             * stream is assigned.
+             */
+
+            student.needsStream=true;
+
+        }
+
+        else if(student.class===12){
+
+            student.class=13;
+
+            student.status="Graduated";
+
+        }
+
+    });
+
+
+    academicYear =
+        nextAcademicYear(academicYear);
+
+
+    localStorage.setItem(
+        "academic_year",
+        academicYear
+    );
+
+
+    saveData();
+
+    closePromotionModal();
+
+    renderPromotionPreview();
+
+    updateDashboard();
+
+
+    alert(
+        "✅ Promotion completed.\n\n"+
+        "Class 1–9 students moved to the next class.\n"+
+        "Class 10 students need stream assignment.\n"+
+        "Class 12 students moved to Graduated."
+    );
+
+}
+
+
+function nextAcademicYear(year){
+
+    const parts =
+        year.split("-");
+
+    const start =
+        Number(parts[0]);
+
+    return `${start+1}-${String(
+        (start+2)
+    ).slice(-2)}`;
+
+}
+
+
+function renderPromotionPreview(){
+
+    const container =
+        document.getElementById(
+            "promotionPreview"
+        );
+
+    if(!container)
+        return;
+
+
+    container.innerHTML =
+        `<p style="color:#8194aa">
+            Academic Year:
+            <b>${academicYear}</b>
+         </p><br>`;
+
+
+    const counts={};
+
+
+    students.forEach(student=>{
+
+        const key =
+            student.status==="Graduated"
+            ? "Graduated"
+            : "Class "+student.class;
+
+        counts[key] =
+            (counts[key]||0)+1;
+
+    });
+
+
+    Object.entries(counts)
+    .forEach(([key,count])=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className="notice";
+
+        div.innerHTML=
+            `<b>${key}</b>
+             <br>
+             <small>${count} students</small>`;
+
+        container.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================================
+   NOTICES
+========================================================= */
+
+function addNotice(){
+
+    const type =
+        document.getElementById(
+            "noticeType"
+        ).value;
+
+    const title =
+        document.getElementById(
+            "noticeTitle"
+        ).value.trim();
+
+    const text =
+        document.getElementById(
+            "noticeText"
+        ).value.trim();
+
+
+    if(!title || !text){
+
+        alert("Enter title and message.");
+
+        return;
+
+    }
+
+
+    notices.push({
+
+        id:Date.now(),
+
+        type:type,
+
+        title:title,
+
+        text:text,
+
+        date:new Date()
+            .toLocaleDateString(),
+
+        academicYear:academicYear
+
+    });
+
+
+    saveData();
+
+    document.getElementById(
+        "noticeTitle"
+    ).value="";
+
+    document.getElementById(
+        "noticeText"
+    ).value="";
+
+
+    renderNotices();
+
+    updateDashboard();
+
+    alert("📢 Notice created.");
+
+}
+
+
+function renderNotices(){
+
+    const container =
+        document.getElementById(
+            "noticeList"
+        );
+
+    if(!container)
+        return;
+
+    container.innerHTML="";
+
+
+    notices
+    .slice()
+    .reverse()
+    .forEach(notice=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className="notice";
+
+
+        const tag =
+            notice.type==="private"
+
+            ? `<span class="private-tag">
+                🔒 Private — Only Me
+               </span>`
+
+            : `<span class="public-tag">
+                📢 Public — Authorized Staff
+               </span>`;
+
+
+        div.innerHTML=`
+
+            ${tag}
+
+            <br><br>
+
+            <h3>${notice.title}</h3>
+
+            <br>
+
+            <p>${notice.text}</p>
+
+            <br>
+
+            <small style="color:#71859d">
+                ${notice.date}
+            </small>
+
+            <br><br>
+
+            <button
+                class="danger-btn"
+                onclick="deleteNotice(${notice.id})">
+
+                Delete
+
+            </button>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+
+    if(notices.length===0){
+
+        container.innerHTML=
+            `<p class="empty">
+                No notices yet.
+             </p>`;
+
+    }
+
+}
+
+
+function deleteNotice(id){
+
+    if(!confirm("Delete this notice?"))
+        return;
+
+    notices =
+        notices.filter(n=>n.id!==id);
+
+    saveData();
+
+    renderNotices();
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   INITIALIZE APP
+========================================================= */
+
+fillClassSelect("examClass");
+fillClassSelect("ttClass");
+fillClassSelect("marksClass");
+
+updateMaximumMarks();
+
+updateExamStream();
+
+updateTTStream();
+
+updateMarksStream();
+
+renderExams();
+
+renderTimetable();
+
+createStudentClassButtons();
+
+createResultClassButtons();
+
+renderNotices();
+
+renderPromotionPreview();
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
