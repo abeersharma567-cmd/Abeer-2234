@@ -1,0 +1,93 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Story</title>
+</head>
+
+<body>
+
+    <h1>🌌 Image Story</h1>
+
+    <div>
+        <div>
+            <img id="mainImage"
+                 src="https://images.unsplash.com/photo-1511497584788-876760111969"
+                 alt="Nature"
+                 width="500">
+        </div>
+
+        <div>
+            <h2 id="title">The Beauty of Nature</h2>
+
+            <p id="description">
+                Nature is filled with incredible landscapes, peaceful forests,
+                beautiful skies and countless forms of life. This image captures
+                the calm and mysterious beauty of the natural world.
+            </p>
+
+            <button onclick="nextImage()">Next Image →</button>
+        </div>
+    </div>
+
+    <script>
+
+        const images = [
+
+            {
+                src: "https://images.unsplash.com/photo-1511497584788-876760111969",
+                title: "The Beauty of Nature",
+                description:
+                "Nature is filled with incredible landscapes, peaceful forests, beautiful skies and countless forms of life. This image captures the calm and mysterious beauty of the natural world."
+            },
+
+            {
+                src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+                title: "Mountain Adventure",
+                description:
+                "Mountains represent adventure, strength and exploration. Their huge peaks and beautiful landscapes attract explorers and photographers from around the world."
+            },
+
+            {
+                src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+                title: "A Peaceful Lake",
+                description:
+                "A quiet lake surrounded by mountains creates a peaceful atmosphere. Water reflects the surrounding landscape and makes the scene feel calm and magical."
+            },
+
+            {
+                src: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e",
+                title: "Into the Wild",
+                description:
+                "Wild landscapes remind us how beautiful and powerful our planet can be. Exploring these places can reveal amazing views and unforgettable experiences."
+            }
+
+        ];
+
+        let current = 0;
+
+        function nextImage() {
+
+            current++;
+
+            if (current >= images.length) {
+                current = 0;
+            }
+
+            document.getElementById("mainImage").src =
+                images[current].src;
+
+            document.getElementById("title").textContent =
+                images[current].title;
+
+            document.getElementById("description").textContent =
+                images[current].description;
+        }
+
+    </script>
+
+</body>
+</html>
+```
